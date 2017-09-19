@@ -20,6 +20,8 @@ expect {
   "STATUS::Tunnel running" {
   } timeout {
     send_user -- "Failed to bring tunnel up after $env(VPNTIMEOUT)s\n"
+    set DATE [exec date]
+    send_tty -- $DATE
     exit 1
   }
 }
@@ -28,9 +30,13 @@ expect {
 set timeout -1
 expect {
   "STATUS::Tunnel closed" {
+    set DATE [exec date]
+    send_tty -- $DATE
     exit 1
   }
   eof {
+    set DATE [exec date]
+    send_tty -- $DATE
     exit
   }
 }
